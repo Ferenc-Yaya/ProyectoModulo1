@@ -11,6 +11,8 @@ public class SwingPrincipal {
     private JButton btnDecifrado;
     private JTextField txtMensajeDecifrado;
 
+    private static final char[] ALFABETO={'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+
     public SwingPrincipal() {
         btnCifrado.addActionListener(new ActionListener() {
             @Override
