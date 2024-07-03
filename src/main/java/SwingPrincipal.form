@@ -27,7 +27,7 @@
       <vspacer id="2100b">
         <constraints>
           <grid row="0" column="1" row-span="1" col-span="5" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
-            <preferred-size width="-1" height="10"/>
+            <preferred-size width="11" height="62"/>
           </grid>
         </constraints>
       </vspacer>
@@ -71,7 +71,7 @@
       </vspacer>
       <hspacer id="45e22">
         <constraints>
-          <grid row="0" column="0" row-span="9" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+          <grid row="4" column="0" row-span="5" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="10" height="-1"/>
           </grid>
         </constraints>
