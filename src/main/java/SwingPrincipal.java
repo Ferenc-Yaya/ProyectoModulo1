@@ -29,15 +29,35 @@ public class SwingPrincipal {
             public void actionPerformed(ActionEvent e) {
                 String clave=JOptionPane.showInputDialog("Ingrese la clave");
                 if(clave!=null){
-                    String mensajeEncriptado=new Cifrar().encriptar(lblArchivo.getText(),Integer.parseInt(clave));
+
+                    String mensaje=new AdminArchivos().lee(lblArchivo.getText());
+                    String mensajeEncriptado=new Cifrar().encriptar(mensaje,Integer.parseInt(clave));
                     txtAreaMensaje.setText(mensajeEncriptado);
+
+                    String archivoEncriptado=lblArchivo.getText().replaceFirst("\\.","_encriptado.");
+
+                    new AdminArchivos().escribe(mensajeEncriptado,archivoEncriptado);
+                    lblarchivoEncriptado.setText(archivoEncriptado);
+
+                    new AdminArchivos().escribe(clave,"clave.property");
+                    lblClave.setText(clave);
+                }
+            }
+        });
+        btnDesencriptar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String nombreArchivo=JOptionPane.showInputDialog("Ingrese nombre del archivo para desencriptar");
+                if(nombreArchivo!=null) {
+                    String archivoEncriptado = new AdminArchivos().lee(nombreArchivo);
+                    String clave = new AdminArchivos().lee(nombreArchivo);
                 }
             }
         });
     }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("SwingPrincipal");
+        JFrame frame = new JFrame("Proyecto cifrado César");
         frame.setContentPane(new SwingPrincipal().mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();

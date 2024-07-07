@@ -8,8 +8,10 @@ public class AdminArchivos {
     public String lee(String nombreArchivo){
         try(BufferedReader br= new BufferedReader(new FileReader(RUTA.resolve(nombreArchivo).toString()))){
            String mensaje="";
-           while(br.read()!=-1){
-               mensaje+=br.read();
+            int charCode;
+           while((charCode = br.read())!=-1){
+               char character = (char) charCode;
+               mensaje+=character;
            }
            return mensaje;
         } catch (IOException e) {
