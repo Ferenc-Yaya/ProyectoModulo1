@@ -1,24 +1,29 @@
-public class Cifrar {
+package pe.codegym.modulo1;
 
-    public String encriptar(String mensaje,int clave){
-        String alfabeto= new AdminArchivos().lee("alfabeto.property");
+public class Cifrar {
+    private String alfabeto;
+
+    public Cifrar(String alfabeto) {
+        this.alfabeto = alfabeto;
+    }
+
+    public String encriptar(String mensaje, int clave){
         String textoEncriptado = "";
         char textoChar;
         int posicion=0;
         for (int i = 0; i <mensaje.length() ; i++) {
             textoChar=mensaje.charAt(i);
-            posicion =alfabeto.indexOf(textoChar);
+            posicion =this.alfabeto.indexOf(textoChar);
 
             if(posicion==-1){
                 textoEncriptado += textoChar;
             }else{
-                textoEncriptado += alfabeto.charAt((posicion+clave)%alfabeto.length());
+                textoEncriptado += this.alfabeto.charAt((posicion+clave)%alfabeto.length());
             }
         }
         return textoEncriptado;
     }
     public String desencriptar(String mensajeEncriptado,int clave){
-        String alfabeto= new AdminArchivos().lee("alfabeto.property");
         String textoDesencriptado = "";
         char textoChar;
         int posicion=0;
@@ -29,10 +34,10 @@ public class Cifrar {
             if(posicion==-1){
                 textoDesencriptado += textoChar;
             }else{
-                if(posicion-3<0){
-                    textoDesencriptado += alfabeto.charAt(alfabeto.length()+(posicion+clave));
+                if(posicion-clave<0){
+                    textoDesencriptado += this.alfabeto.charAt(alfabeto.length()+(posicion-clave));
                 }else{
-                    textoDesencriptado += alfabeto.charAt((posicion-clave)%alfabeto.length());
+                    textoDesencriptado += this.alfabeto.charAt((posicion-clave)%alfabeto.length());
                 }
             }
         }
