@@ -68,7 +68,7 @@ public class Cifrar {
                     }
                 }
             }
-            cadenas+="CLAVE "+y+":"+textoEncriptado+"\n";
+            cadenas+="CLAVE "+y+": "+textoEncriptado+"\n";
             textoEncriptado="";
         }
         return cadenas;
