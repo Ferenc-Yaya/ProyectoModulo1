@@ -49,7 +49,7 @@ public class Cifrar {
     }
 
     public String piratearClave(String mensaje){
-        String cadenas="";
+        String cadena="";
         String textoEncriptado = "";
         char textoChar;
         int posicion=0;
@@ -68,9 +68,9 @@ public class Cifrar {
                     }
                 }
             }
-            cadenas+="CLAVE "+y+": "+textoEncriptado+"\n";
+            cadena+="CLAVE "+y+": "+textoEncriptado+"\n";
             textoEncriptado="";
         }
-        return cadenas;
+        return cadena;
     }
 }

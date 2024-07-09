@@ -57,7 +57,8 @@ public class AdminArchivos {
 //            e.printStackTrace();
 //        }
         try{
-            respuesta=Files.readString(ruta.resolve(PROPERTY));
+            properties.load(Files.newBufferedReader(ruta.resolve(PROPERTY)));
+            respuesta=properties.getProperty("clave");
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -73,7 +74,7 @@ public class AdminArchivos {
 //            e.printStackTrace();
 //        }
         try{
-            Files.writeString(ruta.resolve(PROPERTY),clave);
+            properties.store(Files.newBufferedWriter(ruta.resolve(PROPERTY)),"");
         }catch (IOException e){
             e.printStackTrace();
         }
