@@ -1,11 +1,9 @@
 package pe.codegym.modulo1;
 
-public class Cifrar {
-    private String alfabeto;
+import pe.codegym.modulo1.singleton.Alfabeto;
 
-    public Cifrar(String alfabeto) {
-        this.alfabeto = alfabeto;
-    }
+public class Cifrar {
+    private String alfabeto= Alfabeto.getInstancia().getAlfabeto();
 
     public String encriptar(String mensaje, int clave){
         String textoEncriptado = "";
@@ -14,7 +12,6 @@ public class Cifrar {
         for (int i = 0; i <mensaje.length() ; i++) {
             textoChar=mensaje.charAt(i);
             posicion =this.alfabeto.indexOf(textoChar);
-
             if(posicion==-1){
                 textoEncriptado += textoChar;
             }else{
@@ -34,7 +31,6 @@ public class Cifrar {
         for (int i = 0; i <mensajeEncriptado.length() ; i++) {
             textoChar=mensajeEncriptado.charAt(i);
             posicion =alfabeto.indexOf(textoChar);
-
             if(posicion==-1){
                 textoDesencriptado += textoChar;
             }else{
@@ -57,7 +53,6 @@ public class Cifrar {
             for (int i = 0; i < mensaje.length(); i++) {
                 textoChar = mensaje.charAt(i);
                 posicion = this.alfabeto.indexOf(textoChar);
-
                 if (posicion == -1) {
                     textoEncriptado += textoChar;
                 } else {

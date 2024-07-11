@@ -4,6 +4,8 @@ import pe.codegym.modulo1.strategy.ContextoValidar;
 import pe.codegym.modulo1.strategy.EstrategiaValidar;
 import pe.codegym.modulo1.factorymethod.FabricaConcretaValidar;
 import pe.codegym.modulo1.factorymethod.FabricaValidar;
+import pe.codegym.modulo1.strategy.ValidarNumero;
+import pe.codegym.modulo1.strategy.ValidarVacio;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -23,17 +25,14 @@ public class SwingPrincipal {
     private JButton btnPirateo;
 
     public static final Path RUTA= Paths.get("ficheros");
-    public static final String ALFABETO= "abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ123456789 !¡¿?$%&/()=><;:,.-_áéíóú";
 
     public SwingPrincipal() {
         btnGuardarMensaje.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 if(!valida(txtAreaMensaje.getText(), Errores.CAMPO_VACIO.toString())) return;
                 String nombreArchivo = JOptionPane.showInputDialog("Ingrese el nombre del archivo:");
                 if(!valida(nombreArchivo, Errores.CAMPO_VACIO.toString())) return;
-                if(!valida(nombreArchivo, Errores.TXT_NO_VALIDO.toString())) return;
                 new AdminArchivos(RUTA).escribe(txtAreaMensaje.getText(), nombreArchivo + ".txt");
                 lblArchivo.setText(nombreArchivo + ".txt");
             }
@@ -55,7 +54,7 @@ public class SwingPrincipal {
                 //busco el archivo
                 String mensaje = new AdminArchivos(RUTA).lee(nombreArchivo);
                 //encripto el archivo
-                String mensajeEncriptado = new Cifrar(ALFABETO).encriptar(mensaje, Integer.parseInt(clave));
+                String mensajeEncriptado = new Cifrar().encriptar(mensaje, Integer.parseInt(clave));
                 //creo otro archivo con los datos encriptados
                 String archivoEncriptado = nombreArchivo.replaceFirst("\\.", "_encriptado.");
                 //guardo el archivo
@@ -85,7 +84,7 @@ public class SwingPrincipal {
                 //valido si es digito negativo o positivo
                 if (!valida(claveDesencriptar, Errores.CLAVE_NO_NUMERO.toString())) return;
                 //desencriptar el mensaje
-                String mensajeDesencriptado = new Cifrar(ALFABETO).desencriptar(
+                String mensajeDesencriptado = new Cifrar().desencriptar(
                         new AdminArchivos(RUTA).lee(nombreArchivo), Integer.parseInt(claveDesencriptar));
                 //guarda ne _encriptado.txt
                 new AdminArchivos(RUTA).escribe(mensajeDesencriptado, nombreArchivo);
@@ -104,7 +103,7 @@ public class SwingPrincipal {
                 if (!valida(RUTA.resolve(nombreArchivo).toString(), Errores.ARCHIVO_NO_ENCONTRADO.toString())) return;
                 //busco la clave con el metodo pirateo
                 txtAreaMensaje.setText(
-                        new Cifrar(ALFABETO).piratearClave(
+                        new Cifrar().piratearClave(
                                 new AdminArchivos(RUTA).lee(nombreArchivo)));
 
             }
@@ -112,14 +111,22 @@ public class SwingPrincipal {
     }
 
     private boolean valida(String text, String tipoValidar) {
-        boolean respuesta=true;
-        FabricaValidar fabricaValidar= new FabricaConcretaValidar();
-        EstrategiaValidar estrategiaValidar=fabricaValidar.crearEstrategia(tipoValidar);
-        ContextoValidar contextoValidar= new ContextoValidar(estrategiaValidar);
+        boolean respuesta = true;
+//        EstrategiaValidar estrategiaValidar=new ValidarVacio();
+//        ContextValidar contextValidar= new ContextValidar(estrategiaValidar);
+//        boolean a=contextValidar.validarCadena(txtAreaMensaje.getText());
 
-        if(!contextoValidar.validarCadena(text)) {
+//        FabricaValidar fabricaValidar = new FabricaConcretaValidar();
+//        EstrategiaValidar estrategiaValidar = fabricaValidar.crearEstrategiaValidar(tipoValidar);
+
+//        ContextoValidar contextValidar= new ContextoValidar(estrategiaValidar);
+//        Boolean a =contextValidar.validarCadena(text);
+
+        Boolean a = new ContextoValidar(new FabricaConcretaValidar().crearEstrategiaValidar(tipoValidar)).validarCadena(text);
+
+        if(!a) {
             Errores errores= Errores.valueOf(tipoValidar);
-            JOptionPane.showMessageDialog(null, errores.getMensaje(), "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, errores.getMensaje(), "Mensaje", JOptionPane.WARNING_MESSAGE);
             return false;
         }
         return respuesta;

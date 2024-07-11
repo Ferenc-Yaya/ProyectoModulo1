@@ -89,14 +89,6 @@
           <text value="DESENCRIPTAR ARCHIVO"/>
         </properties>
       </component>
-      <component id="b1cfa" class="javax.swing.JLabel" binding="lblArchivo">
-        <constraints>
-          <grid row="8" column="1" row-span="1" col-span="7" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value=""/>
-        </properties>
-      </component>
       <component id="b56f6" class="javax.swing.JLabel" binding="lblClave">
         <constraints>
           <grid row="13" column="4" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
@@ -123,6 +115,14 @@
       <component id="e82db" class="javax.swing.JLabel" binding="lblarchivoEncriptado">
         <constraints>
           <grid row="13" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="b1cfa" class="javax.swing.JLabel" binding="lblArchivo">
+        <constraints>
+          <grid row="8" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value=""/>
