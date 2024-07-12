@@ -4,8 +4,12 @@ public class ValidarVacio implements EstrategiaValidar {
     @Override
     public boolean validar(String cadena) {
         boolean cadenaValida=true;
-        if(!cadena.matches("^[^\\s].*")||cadena.isEmpty()){
-            cadenaValida=false;
+        try {
+            if (!cadena.matches("^[^\\s].*") || cadena.isEmpty()) {//cadena="",cadena=null
+                cadenaValida = false;
+            }
+        }catch(NullPointerException e){
+            cadenaValida = false;
         }
         return cadenaValida;
     }

@@ -7,10 +7,6 @@ public class ContextoValidar {
         this.estrategiaValidar = estrategiaValidar;
     }
 
-//    public void setEstrategiaValidar(EstrategiaValidar estrategiaValidar) {
-//        this.estrategiaValidar = estrategiaValidar;
-//    }
-
     public boolean validarCadena(String cadena){
         return this.estrategiaValidar.validar(cadena);
     }

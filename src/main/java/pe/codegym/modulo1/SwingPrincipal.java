@@ -30,38 +30,37 @@ public class SwingPrincipal {
         btnGuardarMensaje.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(!valida(txtAreaMensaje.getText(), Errores.CAMPO_VACIO.toString())) return;
+                if(!valida(txtAreaMensaje.getText(), Errores.CAMPO_VACIO.toString())) return;//sin enum seria "campoVacio"
+
                 String nombreArchivo = JOptionPane.showInputDialog("Ingrese el nombre del archivo:");
                 if(!valida(nombreArchivo, Errores.CAMPO_VACIO.toString())) return;
+
                 new AdminArchivos(RUTA).escribe(txtAreaMensaje.getText(), nombreArchivo + ".txt");
                 lblArchivo.setText(nombreArchivo + ".txt");
             }
         });
+
+
         btnEncriptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String nombreArchivo = JOptionPane.showInputDialog("Ingrese el nombre del archivo:",lblArchivo.getText());
-                //valida vacio
                 if(!valida(nombreArchivo,Errores.CAMPO_VACIO.toString()))return;
-                //valida si existe el archivo
                 if(!valida(RUTA.resolve(nombreArchivo).toString(),Errores.ARCHIVO_NO_ENCONTRADO.toString()))return;
 
                 String clave = JOptionPane.showInputDialog("Ingrese la clave");
-                //valida vacio
                 if(!valida(clave,Errores.CAMPO_VACIO.toString()))return;
-                //valido si es digito negativo o positivo
                 if(!valida(clave,Errores.CLAVE_NO_NUMERO.toString()))return;
-                //busco el archivo
+
                 String mensaje = new AdminArchivos(RUTA).lee(nombreArchivo);
-                //encripto el archivo
                 String mensajeEncriptado = new Cifrar().encriptar(mensaje, Integer.parseInt(clave));
-                //creo otro archivo con los datos encriptados
                 String archivoEncriptado = nombreArchivo.replaceFirst("\\.", "_encriptado.");
+
                 //guardo el archivo
                 new AdminArchivos(RUTA).escribe(mensajeEncriptado, archivoEncriptado);
-                lblarchivoEncriptado.setText(archivoEncriptado);
-                //guardo el archivo property
                 new AdminArchivos(RUTA).escribeProperty(clave);
+
+                lblarchivoEncriptado.setText(archivoEncriptado);
                 lblClave.setText(clave);
                 txtAreaMensaje.setText(mensajeEncriptado);
             }
@@ -71,22 +70,21 @@ public class SwingPrincipal {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String nombreArchivo = JOptionPane.showInputDialog("Ingrese nombre del archivo para desencriptar", lblarchivoEncriptado.getText());
-                //valida vacio
                 if (!valida(nombreArchivo, Errores.CAMPO_VACIO.toString())) return;
                 if (!valida(RUTA.resolve(nombreArchivo).toString(), Errores.ARCHIVO_NO_ENCONTRADO.toString())) return;
                 if (!valida(RUTA.resolve("clave.property").toString(), Errores.ARCHIVO_NO_ENCONTRADO.toString())) return;
-                //leo Property
+
+
                 String clave = new AdminArchivos(RUTA).leeProperty();
-                //paso la clave al formulario
                 String claveDesencriptar = JOptionPane.showInputDialog("Ingrese la clave para desencriptar", clave);
-                //valido vacio
                 if (!valida(claveDesencriptar, Errores.CAMPO_VACIO.toString())) return;
-                //valido si es digito negativo o positivo
                 if (!valida(claveDesencriptar, Errores.CLAVE_NO_NUMERO.toString())) return;
-                //desencriptar el mensaje
+
+
                 String mensajeDesencriptado = new Cifrar().desencriptar(
                         new AdminArchivos(RUTA).lee(nombreArchivo), Integer.parseInt(claveDesencriptar));
-                //guarda ne _encriptado.txt
+
+
                 new AdminArchivos(RUTA).escribe(mensajeDesencriptado, nombreArchivo);
 
                 txtAreaMensaje.setText("");
@@ -98,10 +96,10 @@ public class SwingPrincipal {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String nombreArchivo = JOptionPane.showInputDialog("Ingrese nombre del archivo");
-                //valido vacio
                 if (!valida(nombreArchivo, Errores.CAMPO_VACIO.toString())) return;
                 if (!valida(RUTA.resolve(nombreArchivo).toString(), Errores.ARCHIVO_NO_ENCONTRADO.toString())) return;
-                //busco la clave con el metodo pirateo
+
+
                 txtAreaMensaje.setText(
                         new Cifrar().piratearClave(
                                 new AdminArchivos(RUTA).lee(nombreArchivo)));
@@ -112,10 +110,6 @@ public class SwingPrincipal {
 
     private boolean valida(String text, String tipoValidar) {
         boolean respuesta = true;
-//        EstrategiaValidar estrategiaValidar=new ValidarVacio();
-//        ContextValidar contextValidar= new ContextValidar(estrategiaValidar);
-//        boolean a=contextValidar.validarCadena(txtAreaMensaje.getText());
-
 //        FabricaValidar fabricaValidar = new FabricaConcretaValidar();
 //        EstrategiaValidar estrategiaValidar = fabricaValidar.crearEstrategiaValidar(tipoValidar);
 
